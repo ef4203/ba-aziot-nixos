@@ -1,0 +1,4 @@
+# nix-build results
+result*
+*.qcow2
+out
