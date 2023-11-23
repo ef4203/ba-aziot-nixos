@@ -127,7 +127,7 @@
           KillMode = "process";
           Restart = "on-failure";
           RestartSec = "5s";
-          User = users.users.aziotcs.name;
+          # User = users.users.aziotcs.name;
         };
       };
       aziot-identityd = {
@@ -141,7 +141,7 @@
           KillMode = "process";
           Restart = "on-failure";
           RestartSec = "5s";
-          User = users.users.aziotid.name;
+          # User = users.users.aziotid.name;
         };
       };
       aziot-keyd = {
@@ -155,7 +155,7 @@
           KillMode = "process";
           Restart = "on-failure";
           RestartSec = "5s";
-          User = users.users.aziotks.name;
+          # User = users.users.aziotks.name;
         };
       };
       aziot-tpmd = {
@@ -169,35 +169,25 @@
           KillMode = "process";
           Restart = "on-failure";
           RestartSec = "5s";
-          User = users.users.aziottpm.name;
+          # User = users.users.aziottpm.name;
         };
       };
       aziot-idenity-service-envfix = {
         description = "Azure Idendity Service Environment Fixes";
         wantedBy = [ "multi-user.target" ];
         script = ''
-          cp -r ${package}/etc/* /var
-		      chown ${users.users.aziotcs.name}:${users.groups.aziotcs.name} /var/aziot/certd/
-		      chown ${users.users.aziotcs.name}:${users.groups.aziotcs.name} /var/aziot/certd/config.d/
-		      chown ${users.users.aziotcs.name}:${users.groups.aziotcs.name} /var/aziot/certd/config.toml.default
-		      chown ${users.users.aziotid.name}:${users.groups.aziotid.name} /var/aziot/identityd/
-		      chown ${users.users.aziotid.name}:${users.groups.aziotid.name} /var/aziot/identityd/config.d/
-		      chown ${users.users.aziotid.name}:${users.groups.aziotid.name} /var/aziot/identityd/config.toml.default
-		      chown ${users.users.aziotks.name}:${users.groups.aziotks.name} /var/aziot/keyd/
-		      chown ${users.users.aziotks.name}:${users.groups.aziotks.name} /var/aziot/keyd/config.d/
-		      chown ${users.users.aziotks.name}:${users.groups.aziotks.name} /var/aziot/keyd/config.toml.default
-		      chown ${users.users.aziottpm.name}:${users.groups.aziottpm.name} /var/aziot/tpmd/
-		      chown ${users.users.aziottpm.name}:${users.groups.aziottpm.name} /var/aziot/tpmd/config.d/
-		      chown ${users.users.aziottpm.name}:${users.groups.aziottpm.name} /var/aziot/tpmd/config.toml.default
-		      chown root:root /var/aziot/config.toml.template
-		      for f in \
-			      /var/aziot/certd/config.toml.default \
-			      /var/aziot/identityd/config.toml.default \
-			      /var/aziot/keyd/config.toml.default \
-			      /var/aziot/tpmd/config.toml.default
-		      do
-			      chmod 0400 "$f"
-		      done
+          mkdir -p /etc/aziot/certd/config.d
+          mkdir -p /etc/aziot/keyd/config.d
+          mkdir -p /etc/aziot/identityd/config.d
+          mkdir -p /etc/aziot/tpmd/config.d
+		      chown ${users.users.aziotcs.name}:${users.groups.aziotcs.name} /etc/aziot/certd/
+		      chown ${users.users.aziotcs.name}:${users.groups.aziotcs.name} /etc/aziot/certd/config.d/
+		      chown ${users.users.aziotid.name}:${users.groups.aziotid.name} /etc/aziot/identityd/
+		      chown ${users.users.aziotid.name}:${users.groups.aziotid.name} /etc/aziot/identityd/config.d/
+		      chown ${users.users.aziotks.name}:${users.groups.aziotks.name} /etc/aziot/keyd/
+		      chown ${users.users.aziotks.name}:${users.groups.aziotks.name} /etc/aziot/keyd/config.d/
+		      chown ${users.users.aziottpm.name}:${users.groups.aziottpm.name} /etc/aziot/tpmd/
+		      chown ${users.users.aziottpm.name}:${users.groups.aziottpm.name} /etc/aziot/tpmd/config.d/
         '';
       };
     };

@@ -6,7 +6,7 @@ default:
 image:
 	nix-shell -p nixos-generators --run "nixos-generate --format vm-nogui --configuration ./build/image.nix -o ./out --show-trace"
 
-run: image
+run:
 	nix-collect-garbage
 	bash out/bin/run-nixos-vm
 

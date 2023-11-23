@@ -14,8 +14,6 @@
   installPhase = ''
     runHook preInstall
 
-    sed -i "s/\/etc\/aziot\//\/var\/aziot\//g" usr/bin/aziotctl
-    sed -i "s/\/etc\/aziot\//\/var\/aziot\//g" usr/libexec/aziot-identity-service/aziotd
     mkdir -p $out/share
     mkdir -p $out/bin
     mkdir -p $out/lib
