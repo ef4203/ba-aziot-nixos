@@ -8,7 +8,7 @@ image:
 
 run:
 	nix-collect-garbage
-	bash out/bin/run-nixos-vm
+	sudo bash out/bin/run-nixos-vm
 
 clean:
 	nix-store --gc
