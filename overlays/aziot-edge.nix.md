@@ -1,6 +1,16 @@
-{ pkgs }:
+/*
 
-pkgs.rustPlatform.buildRustPackage rec {
+# TODO: title
+
+TODO: documentation
+
+## Implementation
+
+```nix
+#*/# end of MarkDown, beginning of NixPkgs overlay:
+dirname: inputs: final: prev: let
+  inherit (final) pkgs; lib = inputs.self.lib.__internal__;
+in { aziot-edge = pkgs.rustPlatform.buildRustPackage rec {
   pname = "iotedge";
   version = "1.4.25";
 
@@ -10,12 +20,12 @@ pkgs.rustPlatform.buildRustPackage rec {
     rev = version;
     sha256 = "sha256-WESWCGn5dmZige0pVy+rzbjdyK9BvelZyBeWO1Y09bg=";
   };
-
   sourceRoot = "source/edgelet/";
   cargoLock = {
     lockFile = "${src}/edgelet/Cargo.lock";
     allowBuiltinFetchGit = true;
   };
+
   nativeBuildInputs = [ pkgs.pkg-config pkgs.autoPatchelfHook ];
   buildInputs = [ pkgs.openssl pkgs.tpm2-tss pkgs.stdenv.cc.cc ];
 
@@ -27,4 +37,4 @@ pkgs.rustPlatform.buildRustPackage rec {
     platforms = pkgs.lib.platforms.linux;
     maintainers = [ "Microsoft" "Elias Frank" ];
   };
-}
+}; }

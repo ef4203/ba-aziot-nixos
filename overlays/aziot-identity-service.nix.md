@@ -1,4 +1,16 @@
-{ pkgs }: pkgs.stdenv.mkDerivation rec {
+/*
+
+# TODO: title
+
+TODO: documentation
+
+## Implementation
+
+```nix
+#*/# end of MarkDown, beginning of NixPkgs overlay:
+dirname: inputs: final: prev: let
+  inherit (final) pkgs; lib = inputs.self.lib.__internal__;
+in { aziot-identity-service = pkgs.stdenv.mkDerivation rec {
   pname = "aziot-idenity-service";
   version = "1.4.6-1";
 
@@ -33,4 +45,4 @@
     platforms = pkgs.lib.platforms.linux;
     maintainers = [ "Elias Frank" ];
   };
-}
+}; }

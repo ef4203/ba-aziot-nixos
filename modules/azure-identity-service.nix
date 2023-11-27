@@ -1,8 +1,8 @@
-{ config, lib, pkgs, ... }:
+dirname: inputs: { config, lib, pkgs, ... }:
 
 let
   cfg = config.services.azure-identity-service;
-  package = import ../packages/aziot-identity-service.nix { pkgs = pkgs; };
+  package = pkgs.aziot-identity-service;
 in
 
 {

@@ -1,8 +1,8 @@
-{ config, lib, pkgs, ... }:
+dirname: inputs: { config, lib, pkgs, ... }:
 
 let
   cfg = config.services.aziot-edge;
-  package = import ../packages/aziot-edge.nix { pkgs = pkgs; };
+  package = pkgs.aziot-edge;
 in
 
 {
@@ -21,6 +21,7 @@ in
 
   # Configuration for Azure IoT Edge
   config = lib.mkIf cfg.enable {
+    services.azure-identity-service.enable = true;
     users = {
       groups = {
         iotedge = { name = "iotedge"; };
