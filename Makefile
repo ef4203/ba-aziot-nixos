@@ -1,18 +1,11 @@
-.PHONY: run clean
+.PHONY: default run
 
+# Prints the help message for the example.
 default:
-	nix-build
+	nix run .#example -- --help
 
-image:
-	nix-shell -p nixos-generators --run "nixos-generate --format vm-nogui --configuration ./build/image.nix -o ./out --show-trace"
-
+# Starts a QEMU VM with an example NixOS configuration and the Azure IoT package.
+# The `--install=always`  flag ensures that the VM configuration is awalys
+# installed, and we don't have a dirty VM to experiment with.
 run:
-	nix-collect-garbage
-	sudo bash out/bin/run-nixos-vm
-
-clean:
-	nix-store --gc
-	nix-collect-garbage
-	rm -f *.qcow2
-	rm -rf result*
-	rm -rf out
+	nix run .#example -- run-qemu --install=always
