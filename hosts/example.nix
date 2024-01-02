@@ -2,8 +2,7 @@ dirname: inputs: { config, pkgs, lib, name, ... }:
 let
   lib = inputs.self.lib.__internal__;
 in
-let
-in {
+{
   preface = { };
   imports = [
     ({
