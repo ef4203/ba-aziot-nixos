@@ -34,7 +34,7 @@ in
           uid = 904;
           name = "iotedge";
           home = "/var/lib/aziot/edged";
-          isNormalUser = true;
+          isSystemUser = true;
           createHome = true;
           group = "iotedge";
           shell = "/sbin/nologin";
@@ -44,7 +44,7 @@ in
         edgeagentuser = {
           name = "edgeagentuser";
           uid = 13622;
-          isNormalUser = true;
+          isSystemUser = true;
           createHome = false;
           group = "users";
           shell = "/sbin/nologin";

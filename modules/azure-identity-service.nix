@@ -45,7 +45,7 @@ in
           uid = 900;
           name = "aziotks";
           home = "/var/lib/aziot/keyd";
-          isNormalUser = true;
+          isSystemUser = true;
           createHome = true;
           group = users.groups.aziotks.name;
           shell = "/sbin/nologin";
@@ -55,7 +55,7 @@ in
           uid = 901;
           name = "aziottpm";
           home = "/var/lib/aziot/tpmd";
-          isNormalUser = true;
+          isSystemUser = true;
           createHome = true;
           group = users.groups.aziottpm.name;
           shell = "/sbin/nologin";
@@ -65,7 +65,7 @@ in
           uid = 902;
           name = "aziotcs";
           home = "/var/lib/aziot/certd";
-          isNormalUser = true;
+          isSystemUser = true;
           createHome = true;
           group = users.groups.aziotcs.name;
           shell = "/sbin/nologin";
@@ -78,7 +78,7 @@ in
           uid = 903;
           name = "aziotid";
           home = "/var/lib/aziot/identityd";
-          isNormalUser = true;
+          isSystemUser = true;
           createHome = true;
           group = users.groups.aziotid.name;
           shell = "/sbin/nologin";
