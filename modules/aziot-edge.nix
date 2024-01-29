@@ -24,10 +24,14 @@ in
     services.azure-identity-service.enable = true;
     users = {
       groups = {
-        iotedge = { name = "iotedge"; };
+        iotedge = {
+          gid = 1004;
+          name = "iotedge";
+        };
       };
       users = {
         iotedge = {
+          uid = 904;
           name = "iotedge";
           home = "/var/lib/aziot/edged";
           isNormalUser = true;

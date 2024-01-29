@@ -23,13 +23,26 @@ in
   config = lib.mkIf cfg.enable rec {
     users = {
       groups = {
-        aziotks = { name = "aziotks"; };
-        aziottpm = { name = "aziottpm"; };
-        aziotcs = { name = "aziotcs"; };
-        aziotid = { name = "aziotid"; };
+        aziotks = {
+          gid = 1000;
+          name = "aziotks";
+        };
+        aziottpm = {
+          gid = 1001;
+          name = "aziottpm";
+        };
+        aziotcs = {
+          gid = 1002;
+          name = "aziotcs";
+        };
+        aziotid = {
+          gid = 1003;
+          name = "aziotid";
+        };
       };
       users = {
         aziotks = {
+          uid = 900;
           name = "aziotks";
           home = "/var/lib/aziot/keyd";
           isNormalUser = true;
@@ -39,6 +52,7 @@ in
           description = "aziot-keyd user";
         };
         aziottpm = {
+          uid = 901;
           name = "aziottpm";
           home = "/var/lib/aziot/tpmd";
           isNormalUser = true;
@@ -48,6 +62,7 @@ in
           description = "aziot-tpmd user";
         };
         aziotcs = {
+          uid = 902;
           name = "aziotcs";
           home = "/var/lib/aziot/certd";
           isNormalUser = true;
@@ -60,6 +75,7 @@ in
           ];
         };
         aziotid = {
+          uid = 903;
           name = "aziotid";
           home = "/var/lib/aziot/identityd";
           isNormalUser = true;
