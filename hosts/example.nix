@@ -45,5 +45,12 @@ in
       boot.kernelPackages = pkgs.linuxPackages_latest;
 
     })
+    ({
+      ba-efk.preinstalled-container-images.enable = true;
+      ba-efk.preinstalled-container-images.container = [
+        ../assets/ubuntu_24.04.tar.gz
+        ../assets/busybox_latest.tar.gz
+      ];
+    })
   ];
 }
