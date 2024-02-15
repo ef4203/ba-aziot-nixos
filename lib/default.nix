@@ -1,3 +1,4 @@
+# Automatically import library functions from this directory.
 dirname: inputs:
 let
   categories = inputs.functions.lib.importAll inputs dirname;
@@ -5,7 +6,7 @@ let
 in
 self // {
   __internal__ = inputs.nixpkgs.lib // {
-    self = self; # might want to name this differently
+    self = self; # TODO: might want to name this differently
     fun = inputs.functions.lib;
     inst = inputs.installer.lib;
   };

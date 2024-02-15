@@ -10,5 +10,6 @@ default:
 run:
 	nix run .#example --show-trace -- run-qemu --install=always
 
+# Only builds the configuration, without starting the VM.
 dry:
 	nix run '.#example' --show-trace -- run-qemu --install=always --dry-run

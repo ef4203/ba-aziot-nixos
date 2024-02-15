@@ -7,23 +7,18 @@ in
   imports = [
     ({
       ## Hardware
-
       nixpkgs.hostPlatform = "x86_64-linux";
       system.stateVersion = "23.11";
-
       boot.loader.systemd-boot.enable = true;
+      boot.kernelParams = [ "console=ttyS0" ]; # Only during testing in VM.
       setup.bootpart.enable = true;
       setup.temproot = { enable = true; temp.type = "tmpfs"; local.type = "bind"; local.bind.base = "f2fs"; remote.type = "none"; };
       #setup.disks.devices.primary.size = ...;
-      boot.kernelParams = [ "console=ttyS0" ]; # Only during testing in VM.
-
     })
     ({
       ## Base Config
-
       documentation.enable = false; # sometimes takes quite long to build
       services.getty.autologinUser = "root"; # users.users.root.password = "root";
-
     })
     ({
       ## Enable SSHd
@@ -34,18 +29,16 @@ in
         (lib.fun.mkTmpfile { type = "d"; path = "/remote/root/.ssh/"; mode = "700"; })
         (lib.fun.mkTmpfile { type = "f"; path = "/remote/root/.ssh/authorized_keys"; mode = "600"; })
       ];
-
     })
     ({
       ## Azure IoT Edge Config
-
       services.aziot-edge.enable = true;
       # services.aziot-device-update-agent.enable = true;
       virtualisation.docker.enable = true;
       boot.kernelPackages = pkgs.linuxPackages_latest;
-
     })
     ({
+      # Pre-install container images
       ba-efk.preinstalled-container-images.enable = true;
       ba-efk.preinstalled-container-images.container = [
         ../assets/ubuntu_24.04.tar.gz
