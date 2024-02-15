@@ -16,7 +16,7 @@ in
         '';
       };
       container = lib.mkOption {
-        type = lib.types.listOf lib.types.path;
+        type = lib.types.listOf lib.types.anything;
         default = [ ];
         description = lib.mdDoc ''
           List of paths to Docker images to pre-install.
@@ -24,7 +24,6 @@ in
       };
     };
   };
-
   config = lib.mkIf cfg.enable {
     systemd.services = {
       import-preinstalled-container-images = {
@@ -35,15 +34,15 @@ in
           mkdir -p /var/preinst
           ${builtins.concatStringsSep "\n"
           (map (x: "${pkgs.gnutar}/bin/tar cC ${pkgs.stdenv.mkDerivation {
-            pname = builtins.hashFile "md5" x;
-            version = "1.0";
-            src = x;
+            pname = x.imageName;
+            version = x.imageDigest;
+            src = pkgs.dockerTools.pullImage x;
             installPhase = ''
               mkdir -p $out
               tar -xvf $src -C $out
             '';
-          }} . --numeric-owner --transform='s,^\./,,' >| /var/preinst/${builtins.hashFile "md5" x}.tar\n" +
-          "${pkgs.docker}/bin/docker image load -i /var/preinst/${builtins.hashFile "md5" x}.tar")
+          }} . --numeric-owner --transform='s,^\./,,' >| /var/preinst/${x.imageName}.tar\n" +
+          "${pkgs.docker}/bin/docker image load -i /var/preinst/${x.imageName}.tar")
           cfg.container)}
           rm -rf /var/preinst
         '';

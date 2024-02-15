@@ -41,8 +41,20 @@ in
       # Pre-install container images
       ba-efk.preinstalled-container-images.enable = true;
       ba-efk.preinstalled-container-images.container = [
-        ../assets/ubuntu_24.04.tar.gz
-        ../assets/busybox_latest.tar.gz
+        ({
+          imageName = "ubuntu";
+          imageDigest = "sha256:bce129bec07bab56ada102d312ebcfe70463885bdf68fb32182974bd994816e0";
+          sha256 = "sha256-LKWYygBgygXoRbwUN4HpNOQO3GNZ/IkoCUU3Wh7M0io=";
+          os = "linux";
+          arch = "x86_64";
+        })
+        ({
+          imageName = "busybox";
+          imageDigest = "sha256:462231a4068d238616e330a49aa4c0896a61c4003adde5cbe6879caa7f1992de";
+          sha256 = "sha256-rg31gcBFWmL5uFc2iq43qUQ4TQmSW6peEoxy1cBGSpI=";
+          os = "linux";
+          arch = "x86_64";
+        })
       ];
     })
   ];
