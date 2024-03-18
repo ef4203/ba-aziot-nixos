@@ -14,9 +14,8 @@ in
     };
 
     nativeBuildInputs = [ pkgs.autoPatchelfHook pkgs.dpkg pkgs.makeWrapper ];
-    buildInputs = [ pkgs.openssl pkgs.tpm2-tss pkgs.stdenv.cc.cc ];
+    buildInputs = [ pkgs.openssl pkgs.tpm2-tss pkgs.libgcc.lib ];
     unpackPhase = "dpkg-deb -R $src .";
-    runtimeDependencies = [ ];
     installPhase = ''
       runHook preInstall
 

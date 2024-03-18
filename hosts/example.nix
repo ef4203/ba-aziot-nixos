@@ -23,7 +23,7 @@ in
     ({
       ## Enable SSHd
       services.openssh.enable = true;
-      environment.systemPackages = [ pkgs.curl ];
+      environment.systemPackages = [ pkgs.curl pkgs.tree ];
       systemd.tmpfiles.rules = [
         (lib.fun.mkTmpfile { type = "L+"; path = "/root/.ssh"; argument = "/remote/root/.ssh/"; })
         (lib.fun.mkTmpfile { type = "d"; path = "/remote/root/.ssh/"; mode = "700"; })

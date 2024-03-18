@@ -20,8 +20,8 @@ in
       allowBuiltinFetchGit = true;
     };
 
-    nativeBuildInputs = [ pkgs.pkg-config pkgs.autoPatchelfHook ];
-    buildInputs = [ pkgs.openssl pkgs.tpm2-tss pkgs.stdenv.cc.cc ];
+    nativeBuildInputs = [ pkgs.pkg-config pkgs.autoPatchelfHook  ];
+    buildInputs = [ pkgs.openssl pkgs.tpm2-tss pkgs.libgcc.lib ];
 
     meta = {
       description = "The IoT Edge OSS project";
