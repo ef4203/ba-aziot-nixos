@@ -39,7 +39,7 @@ in
             src = pkgs.dockerTools.pullImage x;
             installPhase = ''
               mkdir -p $out
-              tar -xvf $src -C $out
+              ${pkgs.gnutar}/bin/tar -xvf $src -C $out
             '';
           }} . --numeric-owner --transform='s,^\./,,' >| /var/preinst/${x.imageName}.tar\n" +
           "${pkgs.docker}/bin/docker image load -i /var/preinst/${x.imageName}.tar")
