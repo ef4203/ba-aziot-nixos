@@ -36,6 +36,7 @@ in
           (map (x: "${pkgs.gnutar}/bin/tar cC ${pkgs.stdenv.mkDerivation {
             pname = x.imageName;
             version = x.imageDigest;
+            sourceRoot = ".";
             src = pkgs.dockerTools.pullImage x;
             installPhase = ''
               mkdir -p $out
