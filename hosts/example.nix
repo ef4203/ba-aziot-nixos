@@ -34,7 +34,9 @@ in
       ## Azure IoT Edge Config
       services.aziot-edge.enable = true;
       # services.aziot-device-update-agent.enable = true;
-      virtualisation.docker.enable = true;
+      # virtualisation.docker.enable = true;
+      virtualisation.podman.enable = true;
+      virtualisation.podman.dockerCompat = true;
       boot.kernelPackages = pkgs.linuxPackages_latest;
     })
     ({
