@@ -38,9 +38,13 @@ in
             pname = x.imageName;
             version = x.imageDigest;
             phases = [ "installPhase" ];
+            src = pkgs.dockerTools.pullImage x;
+            allowedReferences = [];
             installPhase = ''
               mkdir -p $out
-              tar -xf ${pkgs.dockerTools.pullImage x} -C .
+              mkdir -p build
+              cd build
+              tar -xf $src -C .
               layers=( $( ${pkgs.jq}/bin/jq -r '.[0].Layers|.[]' manifest.json ) )
               echo $layers
               for layer in $layers; do
