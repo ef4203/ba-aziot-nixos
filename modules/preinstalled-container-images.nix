@@ -37,11 +37,10 @@ in
           (map (x: "mkdir -p /var/preinst/${x.imageName}\ncp -r ${pkgs.stdenv.mkDerivation {
             pname = x.imageName;
             version = x.imageDigest;
-            sourceRoot = ".";
-            src = pkgs.dockerTools.pullImage x;
+            phases = [ "installPhase" ];
             installPhase = ''
               mkdir -p $out
-              tar -xf $src -C .
+              tar -xf ${pkgs.dockerTools.pullImage x} -C .
               layers=( $( ${pkgs.jq}/bin/jq -r '.[0].Layers|.[]' manifest.json ) )
               echo $layers
               for layer in $layers; do
