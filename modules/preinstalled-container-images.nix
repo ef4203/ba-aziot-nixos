@@ -46,7 +46,6 @@ in
               cd build
               tar -xf $src -C .
               layers=( $( ${pkgs.jq}/bin/jq -r '.[0].Layers|.[]' manifest.json ) )
-              echo $layers
               for layer in $layers; do
                 mkdir -p $layer.d
                 tar -xvf $layer -C $layer.d
@@ -55,12 +54,23 @@ in
               cp -r . $out
             '';
           }}/* /var/preinst/${x.imageName}" +
-          " # ${pkgs.docker}/bin/docker image load -i /var/preinst/${x.imageName}.tar")
+          ''
+            cd /var/preinst/${x.imageName}
+            layers=( $( ${pkgs.jq}/bin/jq -r '.[0].Layers|.[]' manifest.json ) )
+            for layer in $layers; do
+              tar cC $layer.d --numeric-owner --transform='s,^\./,,' >| $layer
+              rm -rf $layer.d
+              layerHash=$(sha256sum $layer | cut -d ' ' -f 1)
+              sed -i "s,$layer,$layerHash," manifest.json
+            done
+            cd ..
+            tar cC ${x.imageName} --numeric-owner --transform='s,^\./,,' >| ${x.imageName}.tar
+            ${pkgs.docker}/bin/docker image load -i /var/preinst/${x.imageName}.tar"
+          '')
           cfg.container)}
-          # rm -rf /var/preinst
+          rm -rf /var/preinst
         '';
       };
     };
   };
 }
-#           . --numeric-owner --transform='s,^\./,,' >| /var/preinst/${x.imageName}.tar\n" +
