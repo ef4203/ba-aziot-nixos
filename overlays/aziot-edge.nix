@@ -6,13 +6,13 @@ in
 {
   aziot-edge = pkgs.rustPlatform.buildRustPackage rec {
     pname = "iotedge";
-    version = "1.4.25";
+    version = "1.4.26";
 
     src = pkgs.fetchFromGitHub {
       owner = "Azure";
       repo = pname;
       rev = version;
-      sha256 = "sha256-WESWCGn5dmZige0pVy+rzbjdyK9BvelZyBeWO1Y09bg=";
+      sha256 = "sha256-0UykcNsh/hTtGWzjy7oBJFG4UGvjebX4Y2nAVdHA1C4=";
     };
     sourceRoot = "source/edgelet/";
     cargoLock = {
